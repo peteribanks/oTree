@@ -35,12 +35,6 @@ class Group(BaseGroup):
         doc="""Amount sent back by P2""",
     )
 
-    def set_payoffs(self):
-        p1 = self.get_player_by_id(1)
-        p2 = self.get_player_by_id(2)
-        p1.payoff = Constants.endowment - self.sent_amount + self.sent_back_amount
-        p2.payoff = self.sent_amount * Constants.multiplication_factor - self.sent_back_amount
-
 
 class Player(BasePlayer):
     pass
