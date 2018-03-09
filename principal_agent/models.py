@@ -2,13 +2,12 @@ from otree.api import (
     models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
     Currency as c, currency_range
 )
-import random
 
 
 doc = """
 The principal offers a contract to the agent, who can decide if to reject or
 accept. The agent then chooses an effort level. The implementation is based on
-<a href="http://www.nottingham.ac.uk/cedex/documents/papers/2006-04.pdf" target="_blank">
+<a href="http://www.nottingham.ac.uk/cedex/documents/papers/2006-04.pdf">
     Gaechter and Koenigstein (2006)
 </a>.
 """
@@ -69,7 +68,7 @@ def return_from_effort(effort):
 
 class Subsession(BaseSubsession):
     pass
-
+            
 
 class Group(BaseGroup):
     total_return = models.CurrencyField(
@@ -101,10 +100,10 @@ class Group(BaseGroup):
     contract_accepted = models.BooleanField(
         doc="""Whether agent accepts proposal""",
         widget=widgets.RadioSelect,
-        choices=(
-            (True, 'Accept'),
-            (False, 'Reject'),
-        )
+        choices=[
+            [True, 'Accept'],
+            [False, 'Reject'],
+        ]
     )
 
     def set_payoffs(self):
@@ -118,8 +117,7 @@ class Group(BaseGroup):
             self.agent_work_cost = cost_from_effort(self.agent_work_effort)
             self.total_return = return_from_effort(self.agent_work_effort)
 
-            money_to_agent = self.agent_return_share * \
-                             self.total_return + self.agent_fixed_pay
+            money_to_agent = self.agent_return_share * self.total_return + self.agent_fixed_pay
             agent.payoff = money_to_agent - self.agent_work_cost
             principal.payoff = self.total_return - money_to_agent
         principal.payoff += Constants.base_pay
@@ -130,6 +128,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+
     def role(self):
         if self.id_in_group == 1:
             return 'principal'

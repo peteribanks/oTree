@@ -7,7 +7,7 @@ class PlayerBot(Bot):
     cases = ['p1_wins', 'p1_and_p2_win']
 
     def play_round(self):
-        if self.subsession.round_number == 1:
+        if self.round_number == 1:
             yield (pages.Introduction)
 
         if self.case == 'p1_wins':

@@ -4,7 +4,7 @@ from .models import Constants
 
 class Introduction(Page):
     def is_displayed(self):
-        return self.subsession.round_number == 1
+        return self.round_number == 1
 
 
 class Production(Page):
@@ -33,18 +33,14 @@ class ResultsWaitPage(WaitPage):
 
 
 class Results(Page):
-    def vars_for_template(self):
-        return {'seller': self.group.get_seller()}
-
+    pass
 
 class FinalResults(Page):
     def is_displayed(self):
-        return self.subsession.round_number == Constants.num_rounds
+        return self.round_number == Constants.num_rounds
 
     def vars_for_template(self):
         return self.subsession.vars_for_admin_report()
-
-
 
 
 page_sequence = [

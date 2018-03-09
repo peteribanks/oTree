@@ -11,7 +11,7 @@
         {% if player.volunteer %}
             You volunteered. As a result, your payoff is
             <strong>{{ player.payoff }}</strong>.
-        {% elif num_volunteers > 0 %}
+        {% elif group.num_volunteers > 0 %}
             You did not volunteer but some did. As a result, your payoff is
             <strong>{{ player.payoff }}</strong>.
         {% else %}

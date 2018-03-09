@@ -222,15 +222,6 @@ INSTALLED_APPS = ['otree']
 ###     'app_sequence': ['common_value_auction', 'payment_info'],
 ### },
 ### {
-###     'name': 'stackelberg',
-###     'display_name': "Stackelberg Competition",
-###     'real_world_currency_per_point': 0.01,
-###     'num_demo_participants': 2,
-###     'app_sequence': [
-###         'stackelberg', 'payment_info'
-###     ],
-### },
-### {
 ###     'name': 'bertrand',
 ###     'display_name': "Bertrand Competition",
 ###     'num_demo_participants': 2,

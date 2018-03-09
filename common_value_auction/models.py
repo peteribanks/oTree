@@ -31,9 +31,11 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
     def creating_session(self):
         for g in self.get_groups():
-            g.item_value = round(random.uniform(Constants.min_allowable_bid,
-                                                Constants.max_allowable_bid),
-                                 1)
+            item_value = random.uniform(
+                Constants.min_allowable_bid,
+                Constants.max_allowable_bid
+            )
+            g.item_value = round(item_value, 1)
 
 
 class Group(BaseGroup):
@@ -44,10 +46,10 @@ class Group(BaseGroup):
     highest_bid = models.CurrencyField()
 
     def set_winner(self):
-        self.highest_bid = max([p.bid_amount for p in self.get_players()])
+        players = self.get_players()
+        self.highest_bid = max([p.bid_amount for p in players])
 
-        players_with_highest_bid = [p for p in self.get_players() if
-                                    p.bid_amount == self.highest_bid]
+        players_with_highest_bid = [p for p in players if p.bid_amount == self.highest_bid]
         winner = random.choice(
             players_with_highest_bid)  # if tie, winner is chosen at random
         winner.is_winner = True
@@ -55,8 +57,9 @@ class Group(BaseGroup):
     def generate_value_estimate(self):
         minimum = self.item_value - Constants.estimate_error_margin
         maximum = self.item_value + Constants.estimate_error_margin
+        estimate = random.uniform(minimum, maximum)
 
-        estimate = round(random.uniform(minimum, maximum), 1)
+        estimate = round(estimate, 1)
 
         if estimate < Constants.min_allowable_bid:
             estimate = Constants.min_allowable_bid

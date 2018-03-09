@@ -62,7 +62,6 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    # claim by player
     claim = models.CurrencyField(
         min=Constants.min_amount, max=Constants.max_amount,
         doc="""

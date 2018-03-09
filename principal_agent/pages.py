@@ -30,6 +30,7 @@ class Accept(Page):
     form_model = 'group'
     form_fields = ['contract_accepted', 'agent_work_effort']
 
+    timeout_seconds = 3 * 60
     timeout_submission = {
         'contract_accepted': False,
         'agent_work_effort': 1,

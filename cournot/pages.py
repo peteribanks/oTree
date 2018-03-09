@@ -20,7 +20,10 @@ class ResultsWaitPage(WaitPage):
 
 
 class Results(Page):
-    pass
+    def vars_for_template(self):
+        return {
+            'other_player_units': self.player.other_player().units
+        }
 
 
 page_sequence = [

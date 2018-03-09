@@ -10,5 +10,5 @@ class PlayerBot(Bot):
     def play_round(self):
         submitted_answer = self.player.current_question()['choice1']
         yield (pages.Question, {'submitted_answer': submitted_answer})
-        if self.subsession.round_number == Constants.num_rounds:
+        if self.round_number == Constants.num_rounds:
             yield (pages.Results)

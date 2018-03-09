@@ -5,7 +5,7 @@ from .models import Constants
 
 class Choice(Page):
     form_model = 'player'
-    form_fields = ['tails']
+    form_fields = ['penny_side']
 
     def vars_for_template(self):
         return {
@@ -20,7 +20,7 @@ class ResultsWaitPage(WaitPage):
 
 class ResultsSummary(Page):
     def is_displayed(self):
-        return self.subsession.round_number == Constants.num_rounds
+        return self.round_number == Constants.num_rounds
 
     def vars_for_template(self):
         return {

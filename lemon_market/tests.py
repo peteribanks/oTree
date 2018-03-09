@@ -11,7 +11,7 @@ class PlayerBot(Bot):
 
         case = self.case
 
-        if self.subsession.round_number == 1:
+        if self.round_number == 1:
             yield (pages.Introduction)
 
         if 'seller' in self.player.role():
@@ -19,11 +19,12 @@ class PlayerBot(Bot):
                 pages.Production,
                 {
                     'seller_proposed_price': Constants.initial_endowment,
-                    'seller_proposed_quality': 10
-                })
+                    'seller_proposed_quality': 'Low'
+                }
+            )
             if case == 'purchase':
-                assert 'at a price of <strong>{}'.format(
-                    Constants.initial_endowment) in self.html
+                msg = 'at a price of {}'.format(Constants.initial_endowment)
+                assert msg in self.html
             else:
                 assert 'The buyer bought nothing' in self.html
         else:
@@ -31,14 +32,14 @@ class PlayerBot(Bot):
             yield SubmissionMustFail(pages.Purchase)
             if case == 'purchase':
                 yield (pages.Purchase, {'seller_id': 1})
-                assert 'The quality grade of your purchase is <strong>Low' in self.html
-                assert 'your period payoff is <strong>{}'.format(
-                    c(15)) in self.html
+                assert 'The quality grade of your purchase is Low' in self.html
+                msg = 'your period payoff is <strong>{}</strong>'.format(c(15))
+                assert msg in self.html
             else:
                 yield (pages.Purchase, {'seller_id': 0})
                 assert 'You bought nothing' in self.html
                 assert "your period payoff is {}".format(Constants.initial_endowment)
 
         yield (pages.Results)
-        if self.subsession.round_number == Constants.num_rounds:
+        if self.round_number == Constants.num_rounds:
             yield (pages.FinalResults)

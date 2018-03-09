@@ -27,6 +27,21 @@ class Constants(BaseConstants):
     initial_endowment = c(50)
     buyer_extra_value = c(5)
 
+    buy_choices = []
+    for i in range(1, players_per_group):
+        choice = [i, 'Buy from seller {}'.format(i)]
+        buy_choices.append(choice)
+    buy_choices.append([0, 'Buy nothing'])
+
+    quality_production_costs = {
+        # Level: ProductionCost
+        'High': 30,
+        'Medium': 20,
+        'Low': 10
+    }
+
+    quality_level_names = list(quality_production_costs.keys())
+
 
 class Subsession(BaseSubsession):
 
@@ -43,7 +58,7 @@ class Subsession(BaseSubsession):
         for player in group.get_players():
             payoffs = [p.payoff for p in player.in_all_rounds()]
             series.append(
-                {'name': 'Earnings for %s' % player.role().capitalize(),
+                {'name': 'Earnings for %s' % player.role(),
                  'data': payoffs})
 
         return {
@@ -55,51 +70,40 @@ class Subsession(BaseSubsession):
 
 class Group(BaseGroup):
     sale_price = models.CurrencyField()
+    sale_quality = models.StringField()
 
     seller_id = models.IntegerField(
-        choices=[(i, 'Buy from seller %i' % i) for i in
-                 range(1, Constants.players_per_group)] + [
-                    (0, 'Buy nothing')],
+        choices=Constants.buy_choices,
         widget=widgets.RadioSelect,
         doc="""0 means no purchase made"""
-    )  # seller index
+    )
 
     def set_payoff(self):
         for p in self.get_players():
             p.payoff = Constants.initial_endowment
 
         if self.seller_id != 0:
-            seller = self.get_seller()
-            self.sale_price = seller.seller_proposed_price
-
+            seller = self.get_player_by_id(self.seller_id)
             buyer = self.get_player_by_role('buyer')
-            buyer.payoff += seller.seller_proposed_quality + Constants.buyer_extra_value - seller.seller_proposed_price
-            seller.payoff += seller.seller_proposed_price - seller.seller_proposed_quality
 
-    def get_seller(self):
-        for p in self.get_players():
-            if 'seller' in p.role() and p.seller_id() == self.seller_id:
-                return p
+            self.sale_price = seller.seller_proposed_price
+            self.sale_quality = seller.seller_proposed_quality
+            quality_production_cost = Constants.quality_production_costs[self.sale_quality]
+            buyer.payoff += quality_production_cost + Constants.buyer_extra_value - self.sale_price
+            seller.payoff += self.sale_price - quality_production_cost
 
 
 class Player(BasePlayer):
-    # seller
     seller_proposed_price = models.CurrencyField(
         min=0, max=Constants.initial_endowment
     )
 
-    seller_proposed_quality = models.CurrencyField(
-        choices=[
-            (30, 'High'),
-            (20, 'Medium'),
-            (10, 'Low')],
-        widget=widgets.RadioSelectHorizontal)
-
-    def seller_id(self):
-        # player 1 is the buyer, so seller 1 is actually player 2
-        return (self.id_in_group - 1)
+    seller_proposed_quality = models.StringField(
+        choices=Constants.quality_level_names,
+        widget=widgets.RadioSelectHorizontal
+    )
 
     def role(self):
-        if self.id_in_group == 1:
+        if self.id_in_group == Constants.players_per_group:
             return 'buyer'
-        return 'seller {}'.format(self.seller_id())
+        return 'seller {}'.format(self.id_in_group)

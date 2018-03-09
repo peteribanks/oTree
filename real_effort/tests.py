@@ -10,8 +10,8 @@ class PlayerBot(Bot):
         # must reject transcription that is too inaccurate
         yield SubmissionMustFail(pages.Transcribe, {'transcribed_text': 'foo'})
 
-        transcription = Constants.reference_texts[self.subsession.round_number - 1]
-        add_char = Constants.allowed_error_rates[self.subsession.round_number - 1] > 0
+        transcription = Constants.reference_texts[self.round_number - 1]
+        add_char = Constants.allowed_error_rates[self.round_number - 1] > 0
         if add_char:
             # add a 1-char error, should still be fine
             transcription += 'a'
@@ -31,7 +31,7 @@ class PlayerBot(Bot):
         else:
             assert self.player.levenshtein_distance == 0
 
-        if self.subsession.round_number == Constants.num_rounds:
+        if self.round_number == Constants.num_rounds:
             # final page should print lengths of all reference texts
             for ref_text in Constants.reference_texts:
                 assert str(len(ref_text)) in self.html

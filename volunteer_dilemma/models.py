@@ -34,12 +34,16 @@ class Subsession(BaseSubsession):
 
 
 class Group(BaseGroup):
+    num_volunteers = models.IntegerField()
+
     def set_payoffs(self):
-        if any(p.volunteer for p in self.get_players()):
+        players = self.get_players()
+        self.num_volunteers = sum([p.volunteer for p in players])
+        if self.num_volunteers > 0:
             baseline_amount = Constants.general_benefit
         else:
             baseline_amount = c(0)
-        for p in self.get_players():
+        for p in players:
             p.payoff = baseline_amount
             if p.volunteer:
                 p.payoff -= Constants.volunteer_cost

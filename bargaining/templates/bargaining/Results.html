@@ -10,15 +10,15 @@
     <table class=table style="width: auto">
         <tr>
             <th>You demanded</th>
-            <td>{{ player.request_amount }}</td>
+            <td>{{ player.request }}</td>
         </tr>
         <tr>
             <th>The other participant demanded</th>
-            <td>{{ player.other_player.request_amount }}</td>
+            <td>{{ other_player_request }}</td>
         </tr>
         <tr>
             <th>Sum of your demands</th>
-            <td>{{ sum }}</td>
+            <td>{{ group.total_requests }}</td>
         </tr>
         <tr>
             <th>Thus you earn</th>

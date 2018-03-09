@@ -29,25 +29,27 @@ class Subsession(BaseSubsession):
 
 
 class Group(BaseGroup):
+    winning_price = models.CurrencyField()
+
     def set_payoffs(self):
         players = self.get_players()
-        winning_price = min([p.price for p in players])
-        winners = [p for p in players if p.price == winning_price]
+        self.winning_price = min([p.price for p in players])
+        winners = [p for p in players if p.price == self.winning_price]
         winner = random.choice(winners)
+
         for p in players:
-            p.payoff = c(0)
             if p == winner:
-                p.is_a_winner = True
-                p.payoff += p.price
+                p.is_winner = True
+                p.payoff = p.price
+            else:
+                p.is_winner = False
+                p.payoff = c(0)
 
 
 class Player(BasePlayer):
     price = models.CurrencyField(
         min=0, max=Constants.maximum_price,
-        doc="""Price player chooses to sell product for"""
+        doc="""Price player offers to sell product for"""
     )
 
-    is_a_winner = models.BooleanField(
-        initial=False,
-        doc="""Whether this player offered lowest price"""
-    )
+    is_winner = models.BooleanField()

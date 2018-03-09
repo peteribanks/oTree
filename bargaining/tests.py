@@ -17,12 +17,12 @@ class PlayerBot(Bot):
         yield (pages.Introduction)
 
         if self.case == 'success':
-            request_amount = c(10)
-            yield (pages.Request, {"request_amount": request_amount})
+            request = c(10)
+            yield (pages.Request, {"request": request})
             yield (pages.Results)
-            assert self.player.payoff == request_amount
+            assert self.player.payoff == request
 
         if self.case == 'greedy':
-            yield (pages.Request, {"request_amount": Constants.amount_shared})
+            yield (pages.Request, {"request": Constants.amount_shared})
             yield (pages.Results)
             assert self.player.payoff == 0

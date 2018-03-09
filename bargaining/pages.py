@@ -9,7 +9,7 @@ class Introduction(Page):
 
 class Request(Page):
     form_model = 'player'
-    form_fields = ['request_amount']
+    form_fields = ['request']
 
 
 class ResultsWaitPage(WaitPage):
@@ -20,8 +20,7 @@ class ResultsWaitPage(WaitPage):
 class Results(Page):
     def vars_for_template(self):
         return {
-            'sum': self.player.request_amount + self.player.other_player().request_amount,
-            'earn': self.player.payoff
+            'other_player_request': self.player.other_player().request
         }
 
 

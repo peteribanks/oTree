@@ -4,8 +4,7 @@ from .models import Constants
 
 
 class Introduction(Page):
-    def is_displayed(self):
-        return self.subsession.round_number == 1
+    pass
 
 
 class Decision(Page):
@@ -19,11 +18,7 @@ class ResultsWaitPage(WaitPage):
 
 
 class Results(Page):
-    def vars_for_template(self):
-        return {
-            'num_volunteers': len([
-                                      p for p in self.group.get_players() if
-                                      p.volunteer])}
+    pass
 
 
 page_sequence = [Introduction,

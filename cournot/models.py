@@ -28,19 +28,18 @@ class Subsession(BaseSubsession):
 
 class Group(BaseGroup):
 
-    price = models.CurrencyField(
-        doc="""Unit price: P = T - \sum U_i, where T is total capacity and U_i is the number of units produced by player i"""
-    )
+    unit_price = models.CurrencyField()
 
     total_units = models.IntegerField(
         doc="""Total units produced by all players"""
     )
 
     def set_payoffs(self):
-        self.total_units = sum([p.units for p in self.get_players()])
-        self.price = Constants.total_capacity - self.total_units
-        for p in self.get_players():
-            p.payoff = self.price * p.units
+        players = self.get_players()
+        self.total_units = sum([p.units for p in players])
+        self.unit_price = Constants.total_capacity - self.total_units
+        for p in players:
+            p.payoff = self.unit_price * p.units
 
 
 class Player(BasePlayer):
