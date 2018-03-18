@@ -35,15 +35,14 @@ class SendBack(Page):
         return self.player.id_in_group == 2
 
     def vars_for_template(self):
-        tripled_amount = self.group.sent_amount * Constants.multiplication_factor
+        tripled_amount = self.group.sent_amount * Constants.multiplier
 
         return {
                 'tripled_amount': tripled_amount,
-                'prompt':
-                    'Please an amount from 0 to %s:' % tripled_amount}
+                'prompt': 'Please an amount from 0 to {}'.format(tripled_amount)}
 
     def sent_back_amount_max(self):
-        return self.group.sent_amount * Constants.multiplication_factor
+        return self.group.sent_amount * Constants.multiplier
 
 
 class ResultsWaitPage(WaitPage):
@@ -56,7 +55,7 @@ class Results(Page):
 
     def vars_for_template(self):
         return {
-            'tripled_amount': self.group.sent_amount * Constants.multiplication_factor
+            'tripled_amount': self.group.sent_amount * Constants.multiplier
         }
 
 

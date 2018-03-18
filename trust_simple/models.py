@@ -16,7 +16,7 @@ class Constants(BaseConstants):
     num_rounds = 1
 
     endowment = c(10)
-    multiplication_factor = 3
+    multiplier = 3
 
     instructions_template = 'trust_simple/Instructions.html'
 

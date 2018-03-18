@@ -58,7 +58,7 @@ class Subsession(BaseSubsession):
         for player in group.get_players():
             payoffs = [p.payoff for p in player.in_all_rounds()]
             series.append(
-                {'name': 'Earnings for %s' % player.role(),
+                {'name': 'Earnings for {}'.format(player.role()),
                  'data': payoffs})
 
         return {

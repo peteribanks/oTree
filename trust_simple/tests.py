@@ -17,7 +17,7 @@ class PlayerBot(Bot):
             yield (pages.Send, {"sent_amount": case['offer']})
 
         else:
-            for invalid_return in [-1, case['offer'] * Constants.multiplication_factor + 1]:
+            for invalid_return in [-1, case['offer'] * Constants.multiplier + 1]:
                 yield SubmissionMustFail(pages.SendBack,
                                          {'sent_back_amount': invalid_return})
             yield (pages.SendBack, {'sent_back_amount': case['return']})

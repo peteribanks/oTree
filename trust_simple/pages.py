@@ -24,13 +24,13 @@ class SendBack(Page):
 
     def vars_for_template(self):
         return {
-            'tripled_amount': self.group.sent_amount * Constants.multiplication_factor
+            'tripled_amount': self.group.sent_amount * Constants.multiplier
         }
 
     def sent_back_amount_choices(self):
         return currency_range(
             c(0),
-            self.group.sent_amount * Constants.multiplication_factor,
+            self.group.sent_amount * Constants.multiplier,
             c(1)
         )
 
@@ -42,7 +42,7 @@ class ResultsWaitPage(WaitPage):
         p1 = group.get_player_by_id(1)
         p2 = group.get_player_by_id(2)
         p1.payoff = Constants.endowment - group.sent_amount + group.sent_back_amount
-        p2.payoff = group.sent_amount * Constants.multiplication_factor - group.sent_back_amount
+        p2.payoff = group.sent_amount * Constants.multiplier - group.sent_back_amount
 
 
 class Results(Page):

@@ -1,6 +1,6 @@
 # oTree
 
-oTree is a framework based on Python and Django that lets you build:
+oTree is a Python framework that lets you build:
 
 - Multiplayer strategy games, like the prisoner's dilemma, public goods game, and auctions
 - Controlled behavioral experiments in economics, psychology, and related fields
@@ -22,10 +22,10 @@ Rather than cloning this repo directly,
 run these commands:
 
 ```
-pip3 install -U otree-core
+pip3 install -U otree
 otree startproject oTree
-otree resetdb
-otree runserver
+cd oTree
+otree devserver
 ```
 
 ## Example game: guess 2/3 of the average
@@ -99,7 +99,7 @@ class Introduction(Page):
 
 
 class Guess(Page):
-    form_model = models.Player
+    form_model = 'player'
     form_fields = ['guess']
 
 

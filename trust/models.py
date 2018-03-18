@@ -23,7 +23,7 @@ class Constants(BaseConstants):
 
     # Initial amount allocated to each player
     endowment = c(100)
-    multiplication_factor = 3
+    multiplier = 3
 
 
 class Subsession(BaseSubsession):
@@ -45,7 +45,7 @@ class Group(BaseGroup):
         p1 = self.get_player_by_id(1)
         p2 = self.get_player_by_id(2)
         p1.payoff = Constants.endowment - self.sent_amount + self.sent_back_amount
-        p2.payoff = self.sent_amount * Constants.multiplication_factor - self.sent_back_amount
+        p2.payoff = self.sent_amount * Constants.multiplier - self.sent_back_amount
 
 
 class Player(BasePlayer):

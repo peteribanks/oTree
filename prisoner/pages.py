@@ -21,7 +21,7 @@ class ResultsWaitPage(WaitPage):
 class Results(Page):
     def vars_for_template(self):
         me = self.player
-        opponent = self.player.other_player()
+        opponent = me.other_player()
         return {
             'my_decision': me.decision,
             'opponent_decision': opponent.decision,

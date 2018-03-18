@@ -23,11 +23,13 @@ class ResultsSummary(Page):
         return self.round_number == Constants.num_rounds
 
     def vars_for_template(self):
+        player_in_all_rounds = self.player.in_all_rounds()
+
         return {
             'total_payoff': sum(
-                [p.payoff for p in self.player.in_all_rounds()]),
+                [p.payoff for p in player_in_all_rounds]),
             'paying_round': self.session.vars['paying_round'],
-            'player_in_all_rounds': self.player.in_all_rounds(),
+            'player_in_all_rounds': player_in_all_rounds,
         }
 
 

@@ -62,4 +62,4 @@ class Player(BasePlayer):
         return self.session.vars['questions'][self.round_number - 1]
 
     def check_correct(self):
-        self.is_correct = self.submitted_answer == self.solution
+        self.is_correct = (self.submitted_answer == self.solution)

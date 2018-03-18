@@ -51,9 +51,11 @@ class Group(BaseGroup):
                 p.adjustment = c(0)
         else:
             if p1.claim < p2.claim:
-                winner, loser = p1, p2
+                winner = p1
+                loser = p2
             else:
-                winner, loser = p2, p1
+                winner = p2
+                loser = p1
             self.lower_claim = winner.claim
             winner.adjustment = Constants.adjustment_abs
             loser.adjustment = -Constants.adjustment_abs
@@ -73,5 +75,3 @@ class Player(BasePlayer):
 
     def other_player(self):
         return self.get_others_in_group()[0]
-
-
