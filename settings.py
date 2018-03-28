@@ -87,22 +87,9 @@ ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 DEBUG = (environ.get('OTREE_PRODUCTION') in {None, '', '0'})
 
 DEMO_PAGE_INTRO_HTML = """
-<ul>
-    <li>
-        <a href="https://github.com/oTree-org/otree" target="_blank">
-            oTree on GitHub
-        </a>.
-    </li>
-    <li>
-        <a href="http://www.otree.org/" target="_blank">
-            oTree homepage
-        </a>.
-    </li>
-</ul>
-<p>
-    Here are various games implemented with oTree. These games are all open
-    source, and you can modify them as you wish.
-</p>
+Here are various games implemented with 
+oTree. These games are open
+source, and you can modify them as you wish.
 """
 
 # don't share this with anybody.
