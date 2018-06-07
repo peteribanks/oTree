@@ -26,13 +26,11 @@ SESSION_CONFIGS = [
     },
     {
         'name': 'survey',
-        'display_name': "Survey",
         'num_demo_participants': 1,
         'app_sequence': ['survey', 'payment_info'],
     },
     {
         'name': 'quiz',
-        'display_name': "Quiz",
         'num_demo_participants': 1,
         'app_sequence': ['quiz'],
     },
