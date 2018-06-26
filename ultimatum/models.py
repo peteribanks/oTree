@@ -41,8 +41,10 @@ class Subsession(BaseSubsession):
                 g.use_strategy_method = random.choice([True, False])
 
 
-def question(amount):
-    return 'Would you accept an offer of {}?'.format(c(amount))
+def make_field(amount):
+    return models.BooleanField(
+        widget=widgets.RadioSelectHorizontal,
+        label='Would you accept an offer of {}?'.format(c(amount)))
 
 
 class Group(BaseGroup):
@@ -56,29 +58,18 @@ class Group(BaseGroup):
         doc="if offered amount is accepted (direct response method)"
     )
 
-    # for strategy method
-    response_0 = models.BooleanField(
-        widget=widgets.RadioSelectHorizontal, verbose_name=question(0))
-    response_10 = models.BooleanField(
-        widget=widgets.RadioSelectHorizontal, verbose_name=question(10))
-    response_20 = models.BooleanField(
-        widget=widgets.RadioSelectHorizontal, verbose_name=question(20))
-    response_30 = models.BooleanField(
-        widget=widgets.RadioSelectHorizontal, verbose_name=question(30))
-    response_40 = models.BooleanField(
-        widget=widgets.RadioSelectHorizontal, verbose_name=question(40))
-    response_50 = models.BooleanField(
-        widget=widgets.RadioSelectHorizontal, verbose_name=question(50))
-    response_60 = models.BooleanField(
-        widget=widgets.RadioSelectHorizontal, verbose_name=question(60))
-    response_70 = models.BooleanField(
-        widget=widgets.RadioSelectHorizontal, verbose_name=question(70))
-    response_80 = models.BooleanField(
-        widget=widgets.RadioSelectHorizontal, verbose_name=question(80))
-    response_90 = models.BooleanField(
-        widget=widgets.RadioSelectHorizontal, verbose_name=question(90))
-    response_100 = models.BooleanField(
-        widget=widgets.RadioSelectHorizontal, verbose_name=question(100))
+    # for strategy method, see the make_field function above
+    response_0 = make_field(0)
+    response_10 = make_field(10)
+    response_20 = make_field(20)
+    response_30 = make_field(30)
+    response_40 = make_field(40)
+    response_50 = make_field(50)
+    response_60 = make_field(60)
+    response_70 = make_field(70)
+    response_80 = make_field(80)
+    response_90 = make_field(90)
+    response_100 = make_field(100)
 
 
     def set_payoffs(self):

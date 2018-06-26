@@ -22,30 +22,30 @@ class Group(BaseGroup):
 class Player(BasePlayer):
 
     age = models.IntegerField(
-        verbose_name='What is your age?',
+        label='What is your age?',
         min=13, max=125)
 
     gender = models.StringField(
         choices=['Male', 'Female', 'Other'],
-        verbose_name='What is your gender?',
+        label='What is your gender?',
         widget=widgets.RadioSelect)
 
     crt_bat = models.IntegerField(
-        verbose_name='''
+        label='''
         A bat and a ball cost 22 dollars in total.
         The bat costs 20 dollars more than the ball.
         How many dollars does the ball cost?'''
     )
 
     crt_widget = models.IntegerField(
-        verbose_name='''
+        label='''
         "If it takes 5 machines 5 minutes to make 5 widgets,
         how many minutes would it take 100 machines to make 100 widgets?"
         '''
     )
 
     crt_lake = models.IntegerField(
-        verbose_name='''
+        label='''
         In a lake, there is a patch of lily pads.
         Every day, the patch doubles in size.
         If it takes 48 days for the patch to cover the entire lake,
