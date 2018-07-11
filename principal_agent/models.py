@@ -91,6 +91,7 @@ class Group(BaseGroup):
         choices=range(1, 10 + 1),
         doc="""Agent's work effort, [1, 10]""",
         widget=widgets.RadioSelectHorizontal,
+        blank=True # if they reject, they don't have to submit work effort
     )
 
     agent_work_cost = models.CurrencyField(
