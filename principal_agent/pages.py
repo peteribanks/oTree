@@ -1,5 +1,5 @@
 from ._builtin import Page, WaitPage
-from .models import Constants, cost_from_effort
+from .models import Constants
 
 
 class Introduction(Page):
@@ -38,7 +38,7 @@ class Accept(Page):
 
     def error_message(self, values):
         if values['contract_accepted'] and values['agent_work_effort'] == None:
-            return 'If you accept the contract, you must select a work effort.'
+            return 'If you accept the contract, you must select a level of effort.'
 
 
 class ResultsWaitPage(WaitPage):
@@ -48,18 +48,7 @@ class ResultsWaitPage(WaitPage):
 
 
 class Results(Page):
-
-    def vars_for_template(self):
-        if self.group.contract_accepted:
-            effort = self.group.agent_work_effort
-            effort_cost = cost_from_effort(self.group.agent_work_effort)
-        else:
-            effort = effort_cost = 'N/A'
-        return {
-            'received': self.player.payoff - Constants.base_pay,
-            'effort': effort,
-            'effort_cost': effort_cost,
-        }
+    pass
 
 
 page_sequence = [Introduction,

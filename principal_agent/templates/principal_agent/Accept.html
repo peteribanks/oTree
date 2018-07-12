@@ -35,16 +35,16 @@ $(document).ready(function() {
 
 
     var $effortDiv = $('#effort');
-    $effortDiv.hide();
+
     $('input').change(function () {
         var payoffMsg;
 
         var contractAccepted = $('input[name=contract_accepted]:checked').val();
 
-        if (contractAccepted === 'True') {
-            $effortDiv.show();
-        } else {
+        if (contractAccepted === 'False') {
             $effortDiv.hide();
+        } else {
+            $effortDiv.show();
         }
 
         var effort = $('input[name=agent_work_effort]:checked').val();

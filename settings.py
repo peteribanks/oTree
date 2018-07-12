@@ -13,12 +13,6 @@ SESSION_CONFIG_DEFAULTS = {
 
 SESSION_CONFIGS = [
     {
-        'name': 'principal_agent',
-        'display_name': "Principal Agent",
-        'num_demo_participants': 2,
-        'app_sequence': ['principal_agent', 'payment_info'],
-    },
-    {
         'name': 'public_goods',
         'display_name': "Public Goods",
         'num_demo_participants': 3,

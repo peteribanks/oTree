@@ -1,5 +1,7 @@
+from otree.api import Currency as c, currency_range, SubmissionMustFail
 from . import pages
 from ._builtin import Bot
+from .models import Constants
 
 
 class PlayerBot(Bot):
@@ -11,8 +13,8 @@ class PlayerBot(Bot):
         },
         {
             'p2_decision': {'contract_accepted': False},
-            'p1_payoff': c(46),
-            'p2_payoff': c(34),
+            'p1_payoff': Constants.reject_principal_pay,
+            'p2_payoff': Constants.reject_agent_pay,
         },
     ]
 
@@ -28,6 +30,7 @@ class PlayerBot(Bot):
             )
         else:
             # P2/B - accept or reject contract
+            yield SubmissionMustFail(pages.Accept, {'contract_accepted': True})
             yield (pages.Accept, case['p2_decision'])
         yield (pages.Results)
 

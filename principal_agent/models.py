@@ -20,7 +20,6 @@ class Constants(BaseConstants):
 
     instructions_template = 'principal_agent/Instructions.html'
 
-    base_pay = c(30)
     min_fixed_payment = c(-30)
     max_fixed_payment = c(30)
 
@@ -61,14 +60,13 @@ class Constants(BaseConstants):
 def cost_from_effort(effort):
     return c(Constants.EFFORT_TO_COST[effort])
 
-
 def return_from_effort(effort):
     return c(Constants.EFFORT_TO_RETURN[effort])
 
 
 class Subsession(BaseSubsession):
     pass
-            
+
 
 class Group(BaseGroup):
     total_return = models.CurrencyField(
@@ -111,18 +109,15 @@ class Group(BaseGroup):
         principal = self.get_player_by_role('principal')
         agent = self.get_player_by_role('agent')
 
-        if not self.contract_accepted:
-            principal.payoff = Constants.reject_principal_pay
-            agent.payoff = Constants.reject_agent_pay
-        else:
+        if self.contract_accepted:
             self.agent_work_cost = cost_from_effort(self.agent_work_effort)
             self.total_return = return_from_effort(self.agent_work_effort)
-
             money_to_agent = self.agent_return_share * self.total_return + self.agent_fixed_pay
             agent.payoff = money_to_agent - self.agent_work_cost
             principal.payoff = self.total_return - money_to_agent
-        principal.payoff += Constants.base_pay
-        agent.payoff += Constants.base_pay
+        else:
+            principal.payoff = Constants.reject_principal_pay
+            agent.payoff = Constants.reject_agent_pay
 
     def return_share_as_percentage(self):
         return int(self.agent_return_share * 100)
