@@ -42,7 +42,7 @@ class Subsession(BaseSubsession):
 
         for p in self.get_players():
             question_data = p.current_question()
-            p.question_id = question_data['id']
+            p.question_id = int(question_data['id'])
             p.question = question_data['question']
             p.solution = question_data['solution']
 
