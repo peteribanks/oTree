@@ -28,7 +28,7 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
     def creating_session(self):
         if self.round_number == 1:
-            self.session.vars['questions'] = Constants.questions
+            self.session.vars['questions'] = Constants.questions.copy()
             ## ALTERNATIVE DESIGN:
             ## to randomize the order of the questions, you could instead do:
 
