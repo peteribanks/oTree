@@ -14,8 +14,6 @@ class Contribute(Page):
     form_model = 'player'
     form_fields = ['contribution']
 
-    timeout_submission = {'contribution': c(Constants.endowment / 2)}
-
 
 class ResultsWaitPage(WaitPage):
     def after_all_players_arrive(self):

@@ -30,12 +30,6 @@ class Accept(Page):
     form_model = 'group'
     form_fields = ['contract_accepted', 'agent_work_effort']
 
-    #timeout_seconds = 3 * 60
-    timeout_submission = {
-        'contract_accepted': False,
-        'agent_work_effort': 1,
-    }
-
     def error_message(self, values):
         if values['contract_accepted'] and values['agent_work_effort'] == None:
             return 'If you accept the contract, you must select a level of effort.'
