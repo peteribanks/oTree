@@ -32,8 +32,6 @@ class Transcribe(Page):
             else:
                 return "This transcription appears to contain too many errors."
 
-    def before_next_page(self):
-        self.player.payoff = 0
 
 
 class Results(Page):
